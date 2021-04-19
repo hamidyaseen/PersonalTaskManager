@@ -1,0 +1,6 @@
+table {
+  width: 100%;
+}
+.spacer-flex {
+  flex: 1 1 auto;
+}

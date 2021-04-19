@@ -1,0 +1,42 @@
+
+<div class="container-md">
+  <div *ngIf="!project">
+    <p>Loading project Information...</p>
+  </div>
+
+  <!--<div *ngIf="isEmptyProject()">
+    <p>Failed to find project detail!</p>
+  </div>-->
+
+  <div *ngIf="projectForm">
+    <form [formGroup]="projectForm" (ngSubmit)="onUpdate()" style="text-align:center;">
+      <h3 style="margin:21px;">Project information</h3>
+      <mat-form-field appearance="outline" class="element-md element-sm">
+        <mat-label>Project Name</mat-label>
+        <input matInput placeholder="name" required formControlName="name">
+        <mat-icon matSuffix>edit</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="element-md element-sm">
+        <mat-label>Project Type</mat-label>
+        <input matInput placeholder="type as text" formControlName="type">
+        <mat-icon matSuffix>edit</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="element-md">
+        <mat-label>Project Description</mat-label>
+        <input matInput placeholder="Additional Description" formControlName="descrip">
+        <mat-icon matSuffix>edit</mat-icon>
+      </mat-form-field>
+      <div class="element-md">
+        <button mat-raised-button type="button" (click)="location.back()" class="space-md">Go back</button>
+        <button mat-raised-button type="submit" [disabled]="!projectForm.valid || !projectForm.dirty" class="space-md">Update project</button>
+      </div>
+    </form>
+    <!--jsut to testing-->
+    <div>
+      <p>form status :- {{projectForm.status}}</p>
+      <p>form condit :- {{projectForm.dirty}}</p>
+    </div>
+  </div>
+</div>
+
+
