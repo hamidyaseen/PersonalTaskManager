@@ -10,6 +10,9 @@ import { HandleErrorService } from '../services/handle-error.service';
 })
 export class ProjectsService
 {
+  // for requests to an `api` base URL that gets
+  // GET api/projects?name=^j  / / 'j' is a regex; returns heroes whose name starting with 'j' or 'J'
+
   private baseUrl: string = '/api/projects';
   private httpOptions = { headers: new HttpHeaders({ 'content-type': 'application/json' }) };
 

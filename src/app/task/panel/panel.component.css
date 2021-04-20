@@ -1,0 +1,20 @@
+.panel-heading {
+  display: flex;
+  background-color: azure;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 43px;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid lightgray;
+}
+
+.spacer-flex {
+  flex: 1 1 auto;
+}
+
+.panel-body {
+  display: flex;
+  border: 1px solid gray;
+  padding: 13px 7px;
+}

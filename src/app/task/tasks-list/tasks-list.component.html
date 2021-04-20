@@ -1,0 +1,41 @@
+
+<div class="container-md">
+  <p *ngIf="!tasks$">Loading Task List...</p>
+  <div>
+    <mat-toolbar>
+      <h3>Task List</h3>
+      <span class="spacer-flex"></span>
+      <button mat-icon-button class="add-icon" aria-label="button to add task" [routerLink]="['/create-task']"><mat-icon matSuffix>add</mat-icon></button>
+      <button mat-icon-button class="search-icon" aria-label="search icon button"><mat-icon>search</mat-icon></button>
+      <button mat-icon-button class="filter-icon" (click)="isFilterOpen = !this.isFilterOpen" aria-label="share icon button">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+    </mat-toolbar>
+    <div *ngIf="isFilterOpen">
+      <mat-toolbar *ngIf="Projects$ | async as Projects">      
+        <mat-form-field appearance="outline" class="element-sm">
+          <select matNativeControl (change)="onSelected($event.target)">
+            <option [value]="0">-- Display All --</option>
+            <option *ngFor="let project of Projects" [value]="project.id">{{project.name}}</option>
+          </select>
+          <mat-label>Filter listed tasks</mat-label>
+        </mat-form-field>
+      </mat-toolbar>
+    </div>
+    <div class="accordian" *ngIf="tasks$ | async as tasks">
+      <div *ngFor="let task of tasks">
+        <panel [title]="task.title" [opened]="task.isOpen" (toggle)="task.isOpen = !task.isOpen">          
+          <span>{{task.description}}</span>
+          <span class="spacer-flex"></span>
+          <span>{{task.dueDate | date:'short'}}</span>
+          <span class="spacer-flex"></span>
+          <span>{{task.remindDate | date:'short'}}</span>
+          <span class="spacer-flex"></span>
+          <span>{{task.project }}</span>
+        </panel>
+      </div>      
+    </div>
+  </div>
+</div>
+
+

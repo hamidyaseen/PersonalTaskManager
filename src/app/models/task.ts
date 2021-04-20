@@ -11,4 +11,5 @@ export interface Task {
   categoryId: number;
   projectId: number;
   project?: string;
+  isOpen?: boolean;
 }

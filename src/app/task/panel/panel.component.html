@@ -1,0 +1,134 @@
+
+<div class="panel panel-info">
+  <div class="panel-heading" (click)="toggle.emit()">
+    <span>{{title}}</span>
+    <span class="spacer-flex"></span>
+    <button mat-icon-button class="icon-button" aria-label="icon-button" [routerLink]="['/edit-task']">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button class="favorite-icon" aria-label="icon-button" [matMenuTriggerFor]="taskOperation">
+      <mat-icon class="material-icons-outlined">add_alert</mat-icon>
+    </button>
+  </div>
+  <div class="panel-body" *ngIf="opened">
+    <ng-content></ng-content>
+  </div>
+
+  <!-- #docregion sub-menu -->
+  <mat-menu #taskOperation="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="roles"><mat-icon>assignment</mat-icon><span>Assign To</span></button>
+    <button mat-menu-item>Pending</button>
+  </mat-menu>
+
+  <mat-menu #roles="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="developers">
+      <mat-icon>face</mat-icon>
+      <span>Developers</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="teams">
+      <mat-icon>group_work</mat-icon>
+      <span>Teams</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="qaPersons">
+      <mat-icon>face</mat-icon>
+      <span>QA Personals</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="management">
+      <mat-icon>face</mat-icon>
+      <span>Management</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="accounts">Accounts Department</button>
+    <!--<button mat-menu-item>Birds</button>
+    <button mat-menu-item>Mammals</button>-->
+  </mat-menu>
+  <!-- #enddocregion sub-menu -->
+
+  <mat-menu #management="matMenu">
+    <button mat-menu-item>Sonoran desert toad</button>
+    <button mat-menu-item>Western toad</button>
+    <button mat-menu-item>Arroyo toad</button>
+    <button mat-menu-item>Yosemite toad</button>
+  </mat-menu>
+  <mat-menu #accounts="matMenu">
+    <button mat-menu-item>Sonoran desert toad</button>
+    <button mat-menu-item>Western toad</button>
+    <button mat-menu-item>Arroyo toad</button>
+    <button mat-menu-item>Yosemite toad</button>
+  </mat-menu>
+
+
+  <mat-menu #invertebrates="matMenu">
+    <button mat-menu-item>Insects</button>
+    <button mat-menu-item>Molluscs</button>
+    <button mat-menu-item>Crustaceans</button>
+    <button mat-menu-item>Corals</button>
+    <button mat-menu-item>Arachnids</button>
+    <button mat-menu-item>Velvet worms</button>
+    <button mat-menu-item>Horseshoe crabs</button>
+  </mat-menu>
+
+  <mat-menu #developers="matMenu">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>Ahmed Saleem</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>face</mat-icon>
+      <span>Jacob solmensen</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>face</mat-icon>
+      <span>Bilal Aslam</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>face</mat-icon>
+      <span>Nicolisen Wermuth</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>face</mat-icon>
+      <span>Zahid Abdullah</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>face</mat-icon>
+      <span>kristina Dupont</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>face</mat-icon>
+      <span>Solvejs lund</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>face</mat-icon>
+      <span>Ali Nicolisen</span>
+    </button>
+  </mat-menu>
+
+  <mat-menu #teams="matMenu">
+    <button mat-menu-item>Sonoran desert toad</button>
+    <button mat-menu-item>Western toad</button>
+    <button mat-menu-item>Arroyo toad</button>
+    <button mat-menu-item>Yosemite toad</button>
+  </mat-menu>
+
+  <mat-menu #qaPersons="matMenu">
+    <button mat-menu-item>
+      <mat-icon>face</mat-icon>
+      <span>Banded Day Gecko</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>face</mat-icon>
+      <span>Banded Gila Monster</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>face</mat-icon>
+      <span>Black Tree Monitor</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>face</mat-icon>
+      <span>Blue Spiny Lizard</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>face</mat-icon>
+      <span>Velociraptor</span>
+    </button>
+  </mat-menu>
+</div>
