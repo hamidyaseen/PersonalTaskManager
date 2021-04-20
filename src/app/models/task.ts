@@ -6,7 +6,7 @@ export interface Task {
   state?: string;
   createDate: string;
   dueDate: string;
-  dueDT?: Date;
+//  dueDT?: Date;
   remindDate: string;
   categoryId: number;
   projectId: number;

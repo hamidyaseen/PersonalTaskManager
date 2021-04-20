@@ -5,4 +5,5 @@ export interface Project {
   //estimateWeeks: number;
   descrip: string;
   dueTasksCount?: number;
+  dueTasksPercent?: number;
 }
