@@ -31,16 +31,15 @@ export class TaskService {
       map(([tasks, states, projects]) => {
         return tasks.map(task => ({
           ...task,
-          state: states.find(state => state.id === task.stateTypeId)!.name,
+          state: states.find(state => (state.id === task.stateTypeId))!.name,
           project: projects.find(proj => proj.id === task.projectId)!.name
         }) as Task);
       })
   );
 
   public createTask(task: Task): Observable<Task> {
-    return this.http.post<Task>(this.baseUrl, task, this.httpOption).pipe(
-      // confirm
-      tap(task => (task.id === undefined) ? console.log('Failed to create task'): ''),
+    return this.http.post<Task>(this.baseUrl, task, this.httpOption).pipe(      
+      tap(task => (task.id === undefined) ? console.log('Failed to create task') : console.log(`task ${task.id} created`)),
       catchError(this.handleError.handleError('Create Task', {} as Task))
     );
   }

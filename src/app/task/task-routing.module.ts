@@ -7,11 +7,13 @@ import { CommonModule } from '@angular/common';
 import { TaskCreateComponent } from './task-create/task-create.component';
 import { TaskEditComponent } from './task-edit/task-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: 'tasks', component: TasksListComponent },
   { path: 'create-task', component: TaskCreateComponent },
-  { path: 'edit-task', component: TaskEditComponent }
+  { path: 'edit-task', component: TaskEditComponent },
+  { path: 'dashboard', component: DashboardComponent }
 ];
 
 @NgModule({
@@ -19,7 +21,8 @@ const routes: Routes = [
     PanelComponent,
     TasksListComponent,
     TaskCreateComponent,
-    TaskEditComponent    
+    TaskEditComponent,
+    DashboardComponent    
   ],
   imports: [
     CommonModule,

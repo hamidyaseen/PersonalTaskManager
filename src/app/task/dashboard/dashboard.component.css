@@ -1,0 +1,9 @@
+.spacer-flex {
+  flex: 1 1 auto;
+}
+
+.element-sm {
+  width: 43%;
+  margin: 0.25em 0.15em;
+  font-size: initial;
+}

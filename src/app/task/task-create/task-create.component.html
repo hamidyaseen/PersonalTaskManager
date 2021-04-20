@@ -1,11 +1,13 @@
 <div class="container-md">
   <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="align-center">
     <h3 style="margin:21px;">Create a Task</h3>
+
     <mat-form-field appearance="outline" class="element-md element-sm">
       <mat-label>Title</mat-label>
       <input matInput placeholder="title" formControlName="title">
       <mat-icon matSuffix>edit</mat-icon>
     </mat-form-field>
+
     <mat-form-field appearance="outline" class="element-md element-sm">
       <mat-label>Description</mat-label>
       <input matInput placeholder="Description" formControlName="description" required>
@@ -22,8 +24,8 @@
       <mat-label>Projects</mat-label>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="element-md element-sm">      
-      <mat-select formControlName="stateTypeId" [disabled]="bStateDisabled" >
+    <mat-form-field appearance="outline" class="element-md element-sm">
+      <mat-select formControlName="stateTypeId" required [disabled]="bStateDisabled">
         <span *ngFor="let type of taskStates$ | async">
           <mat-option [value]="type.id">{{type.name}}</mat-option>
         </span>

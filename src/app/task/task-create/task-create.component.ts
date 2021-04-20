@@ -1,8 +1,10 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { catchError } from 'rxjs/operators';
 import { Task } from '../../models/task';
 import { ProjectsService } from '../../projects/projects.service';
+import { HandleErrorService } from '../../services/handle-error.service';
 import { StateTypeService } from '../state-type.service';
 import { TaskService } from '../task.service';
 
@@ -17,12 +19,19 @@ export class TaskCreateComponent implements OnInit {
     private projectService: ProjectsService,
     private taskStatesService: StateTypeService,
     private fb: FormBuilder,
-    private location: Location
+    private location: Location,
+    private handleError: HandleErrorService
   ) { }
-  // confirm
-  public Projects$ = this.projectService.projects$.pipe();
-  public taskStates$ = this.taskStatesService.stateTypes$.pipe();
+  
+  public Projects$ = this.projectService.projects$
+    .pipe(
+      catchError(this.handleError.handleError('get project error.', []))
+    );
 
+  public taskStates$ = this.taskStatesService.stateTypes$
+    .pipe(
+      catchError(this.handleError.handleError('get project error.', []))
+    );
 
   public taskForm: FormGroup = this.fb.group({
     title: [''],
@@ -32,14 +41,12 @@ export class TaskCreateComponent implements OnInit {
     remindDate: [''],
     categoryId: ['1'],
     projectId: [''],
-    //bStateDisabled: ['true']
   });
 
   ngOnInit(): void {
   }
 
-  onSubmit(): void {
-    console.log(this.taskForm.value);
+  onSubmit(): void {   
     this.taskService.createTask(this.taskForm.value as Task).subscribe(
       next => this.goBack(),
       err => console.log(`created task is ${err}`)

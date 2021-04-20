@@ -1,0 +1,24 @@
+<div class="container-md green-border">
+  <p *ngIf="!Projects$">Loading due Tasks...</p>
+
+  <div *ngIf="Projects$ | async as Projects">
+    <mat-toolbar>
+      <h3>Due tasks list</h3>
+    </mat-toolbar>    
+    <div *ngIf="Days$ | async as Days" style="text-align: center; margin:13px;">      
+      <mat-form-field appearance="outline" class="element-sm">
+        <mat-select [(value)]="selected" (selectionChange)="onSelected()">
+          <mat-option *ngFor="let day of Days" [value]="day">{{day}}</mat-option>
+        </mat-select>
+        <mat-label>Filter listed tasks</mat-label>
+      </mat-form-field>
+    </div>
+
+    <div *ngFor="let project of Projects" [title]="project.name">
+      <span>{{project.descrip}}</span>
+      <span> ==>> </span>
+      <span>{{project.dueTasksCount}}</span>
+    </div>
+  </div>
+</div>
+
