@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Project } from '../../models/project';
-import { Task } from '../../models/task';
 import { ProjectsService } from '../../projects/projects.service';
+import { SimpleColorPelleteService } from '../../services/simple-color-pellete.service';
 import { TaskService } from '../task.service';
 
 @Component({
@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
   //    })
   //);
 
-  public Projects$ = combineLatest([this.taskService.tasks_SP$, this.projectService.projects$, this.daysActions$])
+  public Projects$ = combineLatest([this.taskService.tasks_SP$, this.projectService.Projects$, this.daysActions$])
     .pipe(
       map(([tasks, projects, days]) => {
         const startDT = new Date();
@@ -68,12 +68,14 @@ export class DashboardComponent implements OnInit {
           );
       }),
       tap(projects => {
-        console.log(`${projects.length} projects.`);
+        console.log(`${projects?.length} projects.`);
         //projects.forEach(project => console.log(`${project.name} project has ${project.dueTasksCount}.`));
       })
     );
 
-  constructor(private taskService: TaskService, private projectService: ProjectsService) { }
+  constructor(private taskService: TaskService,
+    private projectService: ProjectsService,
+    public colorPellete: SimpleColorPelleteService) { }
 
   ngOnInit(): void { }
 

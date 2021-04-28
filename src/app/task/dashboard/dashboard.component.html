@@ -14,10 +14,12 @@
       </mat-form-field>
     </div>
 
-    <div *ngFor="let project of Projects" [title]="project.name">
+    <div *ngFor="let project of Projects; index as i" [title]="project.name">
       <span>{{project.descrip}}</span>
       <span> ==>> </span>
       <span>{{project.dueTasksPercent}}%</span>
+      <app-bar name="{{project.descrip}}"
+               [color]="colorPellete.getColor(i) | async" [percent]="project.dueTasksPercent"></app-bar>      
     </div>
   </div>
 </div>

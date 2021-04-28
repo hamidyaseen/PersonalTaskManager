@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, EMPTY, Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, EMPTY, Observable, Subject } from 'rxjs';
+import { catchError, map, startWith } from 'rxjs/operators';
 import { Project } from '../../models/project';
 import { Task } from '../../models/task';
 import { ProjectsService } from '../../projects/projects.service';
@@ -13,16 +13,22 @@ import { TaskService } from '../task.service';
 })
 export class TasksListComponent implements OnInit {
 
-  private projectIdSubject = new BehaviorSubject<number>(0);
-  private pSelectedAction$ = this.projectIdSubject.asObservable();
+  private projectIdSubject = new Subject<number>();
+  private selectedProjectAction$ = this.projectIdSubject.asObservable();
 
-  Projects$: Observable<Project[]> | undefined = this.projectService.projects$.pipe(
-    catchError(err => { console.log(err.message); return EMPTY; })
-  );
-
-  tasks$: Observable<Task[]> = combineLatest([this.taskService.tasks_SP$, this.pSelectedAction$])
+  Projects$: Observable<Project[]> = this.projectService.Projects$
     .pipe(
-      map(([tasks, projectId]) => (tasks.filter(task => (projectId ? task.projectId === projectId : true))))
+      catchError(err => { console.log(err.message); return EMPTY; })
+     );
+
+  tasks$: Observable<Task[]> = combineLatest([
+    this.taskService.tasks_SP$,
+    this.selectedProjectAction$.pipe(startWith(0))
+  ])
+    .pipe(
+      map(([tasks, projectId]) => 
+        tasks.filter(task => (projectId ? task.projectId === projectId : true))
+      )
   );
 
   constructor(private taskService: TaskService, private projectService: ProjectsService) {

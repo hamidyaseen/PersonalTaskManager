@@ -29,6 +29,9 @@
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/desktop']">Desktop</a>
           </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/tasks/alternat']">Alternative</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link text-dark" [routerLink]="['/about']">About</a>
           </li>
@@ -38,4 +41,6 @@
   </nav>
 </header>
 
-<router-outlet></router-outlet>
+<div class="container-md" style="text-align:center;">
+  <router-outlet></router-outlet>
+</div>

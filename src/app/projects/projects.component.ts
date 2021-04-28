@@ -14,8 +14,8 @@ export class ProjectsComponent implements OnInit {
   public message$: Observable<string> | undefined;
   public displayedColumns: string[] = ['name', 'type', 'descrip', 'extra'];
 
-  public projects$ = this.projectService.projects$.pipe(
-    tap(projects => console.log(`${projects.length} porjects exists`)),
+  public projects$ = this.projectService.Projects$.pipe(
+    tap(projects => console.log(`${projects?.length} porjects exists`)),
     catchError(this.handleError.handleError('get Projects', []))    
   );   
 

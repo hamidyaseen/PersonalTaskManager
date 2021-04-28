@@ -1,9 +1,9 @@
 
-<div class="container-md green-border">
-  <div *ngIf="!projects$">
-    <p>Loading projects!</p>
+<div class="container-md green-border" *ngIf="projects$ | async as projects">
+  <div *ngIf="projects!.length === 0">
+    <p>Loading projects Failed!</p>
   </div>
-  <div *ngIf="projects$ | async as projects">
+  <div *ngIf="projects!.length >0">
     <mat-toolbar>
       <span>Projects List</span>
       <span class="spacer-flex"></span>

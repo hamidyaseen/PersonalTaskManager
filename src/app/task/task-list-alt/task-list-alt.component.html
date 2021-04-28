@@ -1,0 +1,32 @@
+
+<!--<div class="card" *ngIf="!tasks$">
+  <div class="card-header">
+    <span>Tasks (loading...)</span>
+  </div>
+</div>-->
+
+<div class="card" *ngIf="tasks$ | async as tasks" style="text-align:initial;">
+
+  <div class="card-header" *ngIf="tasks?.length ===0">
+    <span>Tasks (loading... Failed.)</span>
+  </div>
+
+  <div class="card-header" *ngIf="tasks?.length !==0" style="display:inline-flex;">
+    <span class="tasks-heading"><span>Tasks </span><span *ngIf="(selectedProjectId$|async)===0">(All)</span></span>
+    <span class="spacer-flex"></span>
+    <mat-form-field appearance="outline" *ngIf="projects$ | async as projects">
+      <mat-select (selectionChange)="onSelectedProject($event.value)">
+        <mat-option [value]="0">-- Display All --</mat-option>
+        <mat-option *ngFor="let project of projects" [value]="project.id">{{project.name}}</mat-option>
+      </mat-select>
+      <mat-label>Selecte project filter</mat-label>
+    </mat-form-field>
+  </div>
+
+  <div class="card-body">
+    <div class="list-group" *ngFor="let task of tasks">
+      <span class="list-group-item" (click)="onSelected(task.id)"
+            [ngClass]="{'active': task?.id === ( selectedTaskId$ | async)}">{{task.description}}</span>
+    </div>
+  </div>
+</div>

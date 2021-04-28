@@ -13,8 +13,9 @@ import { ProjectsService } from '../projects.service';
 })
 export class ProjectEditComponent implements OnInit {
 
-  public project: Project | undefined;
+ // public project: Project | undefined;
   private subParam: Subscription | undefined;
+  private subProject: Subscription | undefined;
   public projectForm: FormGroup | undefined;
 
   constructor(private aRoute: ActivatedRoute,
@@ -29,33 +30,38 @@ export class ProjectEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.subParam = this.aRoute.paramMap.subscribe(paramMap => {
-      this.project = this.projectService.getProject(paramMap.get('id'));
-      if (!this.project) // In case directly browser route to this URL.
-        this.location.back();
 
+      //this.project = this.projectService.getProject(paramMap.get('id'));
+     // if (!this.project) // In case directly browser route to this URL.
+     //   this.location.back();         
 
-      if (this.project)
-        this.projectForm = this.fb.group({
-          ...this.project,
-          name: [this.project.name],
-          type: [this.project.type],
-          descrip: [this.project.descrip]
-        });
+      this.subProject = this.projectService.project$.subscribe(project =>
+        this.projectForm = (project?.id) ? this.fb.group({
+          ...project,
+          name: [project.name],
+          type: [project.type],
+          descrip: [project.descrip]
+        }) : undefined
+        ,
+        err => this.projectForm = undefined);
+
+      this.projectService.changeSelectedProject(parseInt(paramMap?.get('id')!));
     });
   }
-  public isEmptyProject(): boolean {
-    return (this.project === undefined);
-  }
+  //public isEmptyProject(): boolean {
+  //  return (this.project === undefined);
+  //}
 
   public onUpdate(): void
   {
-    if (this.projectForm && this.project) {
+      // && this.project
+    if (this.projectForm ) {
       console.log(this.projectForm.value);
       const project = this.projectForm.value;
-
-      if (this.project.name !== project.name ||
-        this.project.type !== project.type ||
-        this.project.descrip !== project.descrip)
+      //if (this.project.name !== project.name ||
+      //  this.project.type !== project.type ||
+      //  this.project.descrip !== project.descrip)
+      if (this.projectForm.valid && this.projectForm.dirty)        
         this.projectService.updateProject(project).subscribe(next => this.location.back(),
           error => console.log(error)
         );

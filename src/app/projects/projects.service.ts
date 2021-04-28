@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators'
+import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators'
 import { Project } from '../models/project';
 import { HandleErrorService } from '../services/handle-error.service';
 
@@ -16,15 +16,25 @@ export class ProjectsService
   private baseUrl: string = '/api/projects';
   private httpOptions = { headers: new HttpHeaders({ 'content-type': 'application/json' }) };
 
-  private projects: Project[] | undefined;
+  projectSelectionSubject = new BehaviorSubject<number>(0);
+  public projectSelection$ = this.projectSelectionSubject.asObservable();
+
+  //private projects: Project[] | undefined;
 
   //Note:- As this Observer is started/subscribe by async,
   // if the component is not started before the getProject, Projects$ observer is undefined.
-  projects$: Observable<Project[]> = this.http.get<Project[]>(this.baseUrl)
+  Projects$: Observable<Project[]> = this.http.get<Project[]>(this.baseUrl)
     .pipe(
-      tap(projects => (this.projects = projects, console.log(projects))),
+      //tap(projects => (this.projects = projects, console.log(projects))),
+      tap(projects => projects? console.log(projects):''),
       catchError(this.handleError.handleError<Project[]>("Get Projects", []))
   );
+
+  project$ = combineLatest([this.Projects$, this.projectSelection$])
+    .pipe(
+      map(([projects, projectSelectedId]) => projects.find(project => project.id === projectSelectedId)),
+      tap(project => console.log(`selected project is ${project}`))
+    );
 
   constructor(private http: HttpClient, private handleError: HandleErrorService) { }
 
@@ -40,17 +50,20 @@ export class ProjectsService
     );
   }
 
-  public getProject(id: string | null): Project | undefined {
-    let project: Project | undefined;
+  //public getProject(id: string | null): Project | undefined {
+  //  let project: Project | undefined;
 
-    if (!id) return project;
+  //  if (!id) return project;
 
-    let idNo = parseInt(id);
-    if (isNaN(idNo)) return project;
+  //  let idNo = parseInt(id);
+  //  if (isNaN(idNo)) return project;
 
-    if (this.projects && this.projects.length > 0)
-      project = this.projects.find(project => project.id === idNo);
+  //  if (this.projects && this.projects.length > 0)
+  //    project = this.projects.find(project => project.id === idNo);
 
-    return project;
+  //  return project;
+  //}
+  public changeSelectedProject(id: number): void {
+    this.projectSelectionSubject.next(id);
   }
 }

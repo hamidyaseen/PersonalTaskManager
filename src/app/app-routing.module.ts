@@ -15,7 +15,10 @@ const routes: Routes = [
   { path: '**', component: PageNotFoundComponent }];
 
 @NgModule({
-  declarations: [HomeComponent, AboutComponent, PageNotFoundComponent, DesktopComponent],
+  declarations: [HomeComponent,
+    AboutComponent,
+    PageNotFoundComponent,
+    DesktopComponent ],
   imports: [
     CommonModule,
     RouterModule.forRoot(routes),
