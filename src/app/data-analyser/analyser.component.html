@@ -1,0 +1,18 @@
+
+<form class="fullpage-form">
+  <mat-form-field class="fullpage-form-field">
+    <mat-label>Input Salah Data</mat-label>
+    <textarea matInput placeholder="Line by line,datewise data"
+              class="fullpage-input" [formControl]="salahTimes"></textarea>
+  </mat-form-field>
+</form>
+<hr />
+<div style="overflow-y:scroll; height:390px;">
+  <table *ngIf="daysCalendar$ | async as daysCalendar" style="width: 100%">
+    <tr *ngFor="let day of daysCalendar">
+      <td *ngFor="let dayColumn of day.text"> {{dayColumn}}</td>
+    </tr>
+  </table>
+</div>
+
+

@@ -9,6 +9,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMomoryDataService } from './services/in-momory-data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TaskModule } from './task/task.module';
+import { DataAnalyserModule } from './data-analyser/data-analyser.module';
 
 
 @NgModule({
@@ -19,10 +20,10 @@ import { TaskModule } from './task/task.module';
     BrowserModule, HttpClientModule,
     TaskModule,
     ProjectsModule,
+    DataAnalyserModule,
     AppRoutingModule,
     BrowserAnimationsModule,    
-    HttpClientInMemoryWebApiModule.forRoot(InMomoryDataService, { dataEncapsulation: false }),
-          TaskModule
+    HttpClientInMemoryWebApiModule.forRoot(InMomoryDataService, { dataEncapsulation: false })    
   ],
   providers: [],
   bootstrap: [AppComponent]
