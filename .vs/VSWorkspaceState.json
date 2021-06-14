@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\about",
+    "\\src\\app\\data-analyser",
+    "\\src\\app\\task",
+    "\\src\\app\\task\\task-create"
+  ],
+  "SelectedNode": "\\src\\app\\data-analyser\\analyser.component.ts",
+  "PreviewInSolutionExplorer": false
+}
